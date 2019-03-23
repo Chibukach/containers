@@ -1,0 +1,14 @@
+version : '3'
+
+services:
+  go:
+    container_name: go
+    image: mygoimage:0.2
+    command: go run main.go
+    volumes:
+      - .:/go/src/app
+    working_dir: /go/src/app
+    ports:
+      - "8000:8000"
+
+
