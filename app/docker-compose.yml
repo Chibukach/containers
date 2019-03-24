@@ -1,14 +1,35 @@
 version : '3'
 
 services:
-  go:
-    container_name: go
-    image: mygoimage:0.2
+  web1:
+    container_name: web1
+    build: ../
+    #image: mygoimage:0.2
     command: go run main.go
     volumes:
-      - .:/go/src/app
+      - ./demo1:/go/src/app
     working_dir: /go/src/app
     ports:
-      - "8000:8000"
+      - "8001:80"
 
+
+  web2:
+    container_name: web2
+    build: ../
+    #image: mygoimage:0.2
+    command: go run main.go
+    volumes:
+      - ./demo2:/go/src/app
+    working_dir: /go/src/app
+    ports:
+      - "8002:80"
+
+  haproxy:
+#    build: ./haproxy
+    image: haproxy:1.7
+    container_name: haproxy
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "80:80"
 
